@@ -13,13 +13,15 @@ public class Messages {
     public static final String EAT_ITEM_FOUND = "%s(危険度：%d％, 回復量：%d)を発見！%n";
     public static final String SAFE = "......大丈夫なようだ...体力が%d回復！%n";
     public static final String YOU_DEAD = "死んでしまった！死因：%s%n";
-    public static final String HUNGER = "空腹で10ダメージ受けた！";
+    public static final String DAMAGE = "空腹で10ダメージ受けた！";
+    public static final String HUNGER = "空腹";
     public static final String COMPLETE = "%d日間生き延びた！%n不思議な力で島を出た！%n";
     public static final String EAT_ITEM_TIPS = "翌日のアイテムは...%s(危険度：%d％, 回復量：%d)です%n";
 
     public static final String TIPS_WAITING_INPUT = "ヒントを使用して翌日の食べ物を見ますか？(Y/N)：";
     public static final String EAT_WAITING_INPUT = "食べますか？(Y/N)：";
     public static final String ENTER_Y_OR_N_WARN = "YかNを入力してください";
+    public static final String TIPS_NOT_FOUND = "翌日の食べ物がありません";
 
     private static final String RESULT = "-----結果-----";
     private static final String LOG = "%d日目： 残りHP - %d , 発見した食べ物 - %s , 危険度 - %d％ , 食べたかどうか - %s%n";

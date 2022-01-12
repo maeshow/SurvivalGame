@@ -40,7 +40,6 @@ public class PlayerStatusManager {
         int newHitPoint = player.hitPoint() - hitPoint;
         if (newHitPoint <= MIN_HP) {
             newHitPoint = MIN_HP;
-            setDeath(index);
         }
         player.hitPoint(newHitPoint);
     }
@@ -49,10 +48,5 @@ public class PlayerStatusManager {
         Player player = players.get(index);
         int count = player.tipsCount() + 1;
         player.tipsCount(count);
-    }
-
-    public void setDeath(int index) {
-        Player player = players.get(index);
-        player.isAlive(false);
     }
 }
