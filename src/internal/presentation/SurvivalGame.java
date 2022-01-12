@@ -18,6 +18,7 @@ public class SurvivalGame {
     private static final int PLAYER_INDEX = 0;
     private static final int MIN_HP = 0;
     private static final int REMOVE_HP = 10;
+    private static final int MAX_TIPS_COUNT = 3;
 
     private static final String HUNGER = "空腹";
 
@@ -48,7 +49,16 @@ public class SurvivalGame {
             EatItem eatItem = alms.get(day);
             Messages.showFormattedMessage(Messages.EAT_ITEM_FOUND, eatItem.getItemName(), eatItem.getDangerLevel(),
                     eatItem.getExpectedHeelingHP());
-            Messages.showWithoutNewLine(Messages.WAINTING_INPUT);
+            if (hasTips(player, day)) {
+                Messages.showWithoutNewLine(Messages.TIPS_WAITING_INPUT);
+                if (getPlayerInput()) {
+                    playerStatusManager.countTips(PLAYER_INDEX);
+                    EatItem tips = alms.get(day + 1);
+                    Messages.showFormattedMessage(Messages.EAT_ITEM_TIPS, tips.getItemName(), tips.getDangerLevel(),
+                            tips.getExpectedHeelingHP());
+                }
+            }
+            Messages.showWithoutNewLine(Messages.EAT_WAITING_INPUT);
             if (getPlayerInput()) {
                 if (eatItem.canEat()) {
                     int healHp = eatItem.getExpectedHeelingHP();
@@ -119,5 +129,14 @@ public class SurvivalGame {
             return false;
         }
         return true;
+    }
+
+    private boolean hasTips(Player player, int day) {
+        if (player.tipsCount() < MAX_TIPS_COUNT) {
+            if (day < MAX_DAY) {
+                return true;
+            }
+        }
+        return false;
     }
 }

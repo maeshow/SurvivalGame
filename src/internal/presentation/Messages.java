@@ -15,8 +15,10 @@ public class Messages {
     public static final String YOU_DEAD = "死んでしまった！死因：%s%n";
     public static final String HUNGER = "空腹で10ダメージ受けた！";
     public static final String COMPLETE = "%d日間生き延びた！%n不思議な力で島を出た！%n";
+    public static final String EAT_ITEM_TIPS = "翌日のアイテムは...%s(危険度：%d％, 回復量：%d)です%n";
 
-    public static final String WAINTING_INPUT = "食べますか？(Y/N)：";
+    public static final String TIPS_WAITING_INPUT = "ヒントを使用して翌日の食べ物を見ますか？(Y/N)：";
+    public static final String EAT_WAITING_INPUT = "食べますか？(Y/N)：";
     public static final String ENTER_Y_OR_N_WARN = "YかNを入力してください";
 
     private static final String RESULT = "-----結果-----";

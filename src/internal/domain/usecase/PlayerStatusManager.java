@@ -9,7 +9,6 @@ public class PlayerStatusManager {
     private static final int MAX_HP = 100;
     private static final int MIN_HP = 0;
     private static final int DEFAULT_HP = 50;
-    private static final int MAX_TIPS_COUNT = 3;
     private static final int DEFAULT_TIPS_COUNT = 0;
 
     private List<Player> players;
@@ -46,14 +45,10 @@ public class PlayerStatusManager {
         player.hitPoint(newHitPoint);
     }
 
-    public boolean countTips(int index) {
+    public void countTips(int index) {
         Player player = players.get(index);
         int count = player.tipsCount() + 1;
-        if (MAX_TIPS_COUNT < count) {
-            return false;
-        }
         player.tipsCount(count);
-        return true;
     }
 
     public void setDeath(int index) {
