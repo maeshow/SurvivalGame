@@ -7,6 +7,7 @@ import internal.domain.entity.EatItem;
 import internal.domain.entity.Player;
 import internal.domain.usecase.EatItemGenerator;
 import internal.domain.usecase.PlayerStatusManager;
+import internal.domain.usecase.SurvivalLogGenerator;
 
 public class SurvivalGame {
     private static final Scanner STDIN = new Scanner(System.in);
@@ -21,10 +22,12 @@ public class SurvivalGame {
     private static final String HUNGER = "空腹";
 
     PlayerStatusManager playerStatusManager;
+    SurvivalLogGenerator survivalLogGenerator;
     EatItemGenerator eatItemGenerator;
 
     public SurvivalGame() {
         playerStatusManager = new PlayerStatusManager();
+        survivalLogGenerator = new SurvivalLogGenerator();
         eatItemGenerator = new EatItemGenerator();
         eatItemGenerator.almsGenerate(MAX_DAY);
     }
@@ -32,6 +35,7 @@ public class SurvivalGame {
     public void startGame() {
         Messages.showFormattedMessage(Messages.PROLOGUE);
         startSurvival();
+        Messages.showResult(survivalLogGenerator.getLogs());
     }
 
     public void startSurvival() {
@@ -50,9 +54,11 @@ public class SurvivalGame {
                     int healHp = eatItem.getExpectedHeelingHP();
                     playerStatusManager.addHitPoint(PLAYER_INDEX, healHp);
                     Messages.showFormattedMessage(Messages.SAFE, healHp);
+                    survivalLogGenerator.addLog(player.hitPoint(), eatItem, true);
                     day++;
                     continue;
                 }
+                survivalLogGenerator.addLog(player.hitPoint(), eatItem, true);
                 Messages.showFormattedMessage(Messages.YOU_DEAD, eatItem.getCauseOfDeath());
                 return;
             }
@@ -61,6 +67,7 @@ public class SurvivalGame {
             if (!isAlive(player)) {
                 Messages.showFormattedMessage(Messages.YOU_DEAD, HUNGER);
             }
+            survivalLogGenerator.addLog(player.hitPoint(), eatItem, false);
             day++;
         }
         Messages.showFormattedMessage(Messages.COMPLETE, day);

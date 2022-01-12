@@ -1,5 +1,10 @@
 package internal.presentation;
 
+import java.util.List;
+
+import internal.domain.entity.EatItem;
+import internal.domain.entity.SurvivalLog;
+
 public class Messages {
     public static final String PROLOGUE = "あなたは目が冷めたら無人島にいた。 目の前に１枚の手紙がある。 手紙にはこう書かれていた・・・%n「３０日間生き延びたら助けます」%nこうして無人島生活が始まった。%n";
 
@@ -13,6 +18,27 @@ public class Messages {
 
     public static final String WAINTING_INPUT = "食べますか？(Y/N)：";
     public static final String ENTER_Y_OR_N_WARN = "YかNを入力してください";
+
+    private static final String RESULT = "-----結果-----";
+    private static final String LOG = "%d日目： 残りHP - %d , 発見した食べ物 - %s , 危険度 - %d％ , 食べたかどうか - %s%n";
+    private static final String EAT = "食べた";
+    private static final String NOT_EAT = "食べなかった";
+
+    private static final int FIRST_DAY = 0;
+
+    public static void showResult(List<SurvivalLog> logs) {
+        showWithNewLine(RESULT);
+        int day = FIRST_DAY;
+        for (SurvivalLog log : logs) {
+            EatItem eatItem = log.eatItem();
+            day++;
+            if (log.isEat()) {
+                showFormattedMessage(LOG, day, log.hitPoint(), eatItem.getItemName(), eatItem.getDangerLevel(), EAT);
+                continue;
+            }
+            showFormattedMessage(LOG, day, log.hitPoint(), eatItem.getItemName(), eatItem.getDangerLevel(), NOT_EAT);
+        }
+    }
 
     public static void showWithNewLine(String message) {
         System.out.println(message);
@@ -40,5 +66,9 @@ public class Messages {
 
     public static void showFormattedMessage(String message, String a, int b, int c) {
         System.out.format(message, a, b, c);
+    }
+
+    public static void showFormattedMessage(String message, int a, int b, String c, int d, String e) {
+        System.out.format(message, a, b, c, d, e);
     }
 }
